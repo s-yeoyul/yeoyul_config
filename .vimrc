@@ -1,15 +1,15 @@
 if has("syntax")
-	syntax on
+  syntax on
 endif
 set t_Co=256
 set incsearch
 set hlsearch
 set nu
 set autoindent
-set ts=4
-set sts=4
+set ts=2 " 4
+set sts=2 " 4
+set shiftwidth=2 " 4
 set laststatus=2
-set shiftwidth=4
 set showmatch
 set smartcase
 set smarttab
@@ -17,24 +17,18 @@ set smartindent
 set ruler
 set fileencodings=utf8,euc-kr
 set title
-colorscheme jellybeans
 set nocompatible
+set expandtab
 filetype off
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
+call plug#begin()
+  Plug 'preservim/nerdtree'
+  Plug 'preservim/tagbar'
+  Plug 'cocopon/iceberg.vim'
+call plug#end()
 
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'jiangmiao/auto-pairs'
-Plugin 'sheerun/vim-polyglot'
-Plugin 'preservim/nerdtree'
-Plugin 'preservim/tagbar'
-" Plugin 'ycm-core/YouCompleteMe'
-call vundle#end()
+set background=dark
+colorscheme iceberg
 filetype plugin indent on
 
 let g:AutoPairsShortcutToggle = '<C-P>'
@@ -59,6 +53,18 @@ nnoremap <Up>        <C-W>k
 nnoremap <Down>      <C-W>j
 nnoremap <Left>      <C-W>h
 nnoremap <Right>     <C-W>l
+
+" Going to the end of the parenthesis immediately
+inoremap <C-e> <C-o>A
+
+" add mapping for auto closing
+imap "<tab> ""<Left>
+imap '<tab> ''<Left>
+imap (<tab> ()<Left>
+imap [<tab> []<Left>
+imap {<tab> {}<Left>
+imap {<CR> {<CR>}<ESC>O
+imap {;<CR> {<CR>};<ESC>O
 
 " Mapping to open and close the panel
 nmap <F8> :TagbarToggle<CR>
@@ -90,7 +96,7 @@ let g:ycm_echo_current_diagnostic = 1            " Echo line's diagnostic that c
 
 " use 256 colors in terminal
 if !has("gui_running")
-	set t_Co=256
+  set t_Co=256
     set term=screen-256color
 endif
 " fix cursor display in cygwin
